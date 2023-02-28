@@ -1,27 +1,13 @@
-name: Makefile CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+name: Azure Python 3.5 on: [push]
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: configure
-      run: ./configure
-
-    - name: Install dependencies
-      run: make
-
-    - name: Run check
-      run: make check
-
-    - name: Run distcheck
-      run: make distcheck
+build:
+runs-on: ubuntu-latest steps:
+- uses: actions/checkout@v2 - name: Set up Python 3.5.10
+uses: actions/setup-python@v1 with:
+python-version: 3.5.10 - name: Install dependencies
+run: |
+make install
+- name: Lint run: |
+make lint
+- name: Test run: |
+make test
